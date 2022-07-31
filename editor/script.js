@@ -48,7 +48,7 @@ class Editor {
         x.className = "show";
 
         // After 3 seconds, remove the show class from DIV
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 2500);
     }
     createRegion () {
         if (this.loaded == null) return
@@ -75,7 +75,6 @@ class Editor {
             firsty = this.mouseY
             obj.firstX = firstx
             obj.firstY = firsty
-            console.log(firstx, firsty)
             isDrawing = true
         })
         bigregion.on("mousemove", (e) => {
@@ -211,8 +210,8 @@ class Editor {
     }
     export () {
         console.log("Exported data.json seen here:")
-        console.log(this.loaded)
-        alert("Check console for data.json")
+        console.log(JSON.stringify(this.loaded))
+        this.alert("Check console for exported region/point data.")
     }
     listRP () {
         let regions, points, container, i = 0
@@ -269,6 +268,7 @@ class Editor {
         });
     }
     setup () {
+        this.alert("Initializing complete. Load a map to start editing.")
         let loadBtn, exportBtn, regionBtn, pointBtn;
         loadBtn = document.getElementById("load-btn");
         exportBtn = document.getElementById("export-btn");
@@ -311,10 +311,9 @@ class Editor {
             }
 
             if (e.keyCode == 70) {
-                console.log("presset")
                 let input = prompt("Enter x lock number: ")
                 if (input.length == 0) return
-                // if (isNaN(+input)) return
+                if (isNaN(+input)) return
                 this.xLocked.value = +input
             }
 
