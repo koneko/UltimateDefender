@@ -50,6 +50,15 @@ class Editor {
         // After 3 seconds, remove the show class from DIV
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 2500);
     }
+    openModal (text) {
+        let content = document.getElementById("modal-content")
+        let a = document.createElement("a")
+        a.href = "#open-modal"
+        a.click()
+        content.innerHTML = ""
+        content.innerHTML = `<a href="#" title="Close" class="modal-close">Close</a>`
+        content.innerHTML += text
+    }
     createRegion () {
         if (this.loaded == null) return
         this.alert("Click and drag to create build region on the map.")
@@ -236,7 +245,8 @@ class Editor {
             })
             p.addEventListener("contextmenu", (e) => {
                 e.preventDefault()
-                this.loaded.regions.splice(i - 1, 1)
+                //remove region from regions list
+                this.loaded.regions.splice(i, 1)
                 this.listRP()
             })
             container.appendChild(p)
@@ -261,19 +271,33 @@ class Editor {
             })
             p.addEventListener("contextmenu", (e) => {
                 e.preventDefault()
-                this.loaded.points.splice(i - 1, 1)
+                this.loaded.points.splice(i, 1)
                 this.listRP()
             })
             container.appendChild(p)
         });
     }
+    roundEditor () {
+        this.openModal("createRound")
+    }
+    enemyEditor () {
+        this.openModal("enemyEditor")
+    }
+    towerEditor () {
+        this.openModal(`
+        <h1>Tower Creator</h1>
+        `)
+    }
     setup () {
         this.alert("Initializing complete. Load a map to start editing.")
-        let loadBtn, exportBtn, regionBtn, pointBtn;
+        let loadBtn, exportBtn, regionBtn, pointBtn, roundBtn, enemyEditor, towerEditor;
         loadBtn = document.getElementById("load-btn");
         exportBtn = document.getElementById("export-btn");
         regionBtn = document.getElementById("region-btn");
         pointBtn = document.getElementById("point-btn");
+        roundBtn = document.getElementById("round-btn");
+        enemyEditor = document.getElementById("enemy-editor");
+        towerEditor = document.getElementById("tower-editor");
         loadBtn.addEventListener("click", () => {
             let number = prompt("Enter map number: ")
             if (number.length == 0) return
@@ -289,6 +313,15 @@ class Editor {
         pointBtn.addEventListener("click", () => {
             this.createPoint()
         })
+        roundBtn.addEventListener("click", () => {
+            this.roundEditor()
+        })
+        enemyEditor.addEventListener("click", () => {
+            this.enemyEditor()
+        })
+        towerEditor.addEventListener("click", () => {
+            this.towerEditor()
+        })
         document.body.addEventListener("keydown", (e) => {
             // keycode for V
             if (e.keyCode == 86) {
@@ -300,7 +333,6 @@ class Editor {
                 this.viewPoints = true
                 this.viewHide()
             }
-
 
             if (e.keyCode == 88) {
                 this.xLocked.active = true

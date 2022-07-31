@@ -1,5 +1,8 @@
 <script src="https://pixijs.download/v6.3.2/pixi.js"></script>
+<title>Ultimate Editor</title>
+<link rel="shortcut icon" href="https://hub.koneko.link/cdn/icons/black.png" type="image/x-icon">
 <link rel="stylesheet" href="snackbar.css">
+<link rel="stylesheet" href="modal.css">
 <style>
     html, body {
         margin: 0;
@@ -63,9 +66,13 @@
         background-color: black;
         cursor: pointer;
     }
+    button {
+        cursor: pointer;
+    }
 </style>
 <br><br><br>
 <div class="canvas"></div>
+<br>
 <div class="controls">
     <div class="sub1">
         <p id="current-mouse">X: N/A | Y: N/A</p>
@@ -82,7 +89,17 @@
             <button id="point-btn">Create Point</button>
             <div class="points"></div>
         </div>
+        <div class="creator">
+            <button id="round-btn">Open <b>round</b> editor</button>
+            <button id="enemy-editor">Open <b>enemy</b> editor</button>
+            <button id="tower-editor">Open <b>tower</b> editor</button>
+        </div>
     </div>
 </div>
 <div id="snackbar"></div>
+<div id="open-modal" class="modal-window" style="display: block;">
+    <div id="modal-content">
+        
+    </div>
+</div>
 <script src="script.js"></script>
