@@ -1,0 +1,7 @@
+V - show regions
+B - show points
+--when making points--
+X - lock x value
+C - lock y value
+F - set x value
+G - set y value
